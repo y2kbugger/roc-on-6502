@@ -15,7 +15,7 @@ main! = |{}| {
     var $nines = 0.U16
     var $predigit = 0.U16
     var $first = True
-    Host.puts!("Calculated first ")
+    Host.puts!("Calculating first ")
     print_u16!(digits)
     Host.puts!(" digits of pi: ")
     for _ in 0..<digits {

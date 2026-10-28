@@ -6,11 +6,12 @@ the 6502, a CPU from 1975, and run by a 6502 written in SQL. Every instruction i
 
 ```text
 $ sqlite3 < pi.sql
-Calculated first 69 digits of pi: 314159265358979323846264338327950288419716939937510582097494459230781
-Ran 14440597 6502 instructions, exit code 0.
+Calculating first 69 digits of pi: 314159265358979323846264338327950288419716939937510582097494459230781
+Ran 14440669 6502 instructions, exit code 0.
 ```
 
-That takes about 80 seconds, which is roughly how long it takes to explain why.
+The digits arrive one by one over about 80 seconds, which is roughly how long it takes to explain
+why.
 
 
 ## Use it
@@ -53,7 +54,8 @@ apps/pi.roc ──roc──▶ LLVM bitcode (wasm32) ──retarget──▶ 650
     - Memory is a 65,536-row table.
     - The console is two more triggers: a byte written to `$FFF9` is a character, one written to
       `$FFF8` halts the CPU.
-    - [`mksql.py`](mksql.py) appends the program and 222 batches of 65,536 ticks.
+    - [`mksql.py`](mksql.py) appends the program and 56 steps of 262,144 clock ticks.
+    - After each step, the file prints whatever the program printed during it: the output streams.
 
 The 6502 has no divide instruction, so most of the 14.4 million instructions are the spigot's two
 16-bit divisions per term, each a call into llvm-mos's runtime.
